@@ -1,0 +1,29 @@
+<script>
+  // Class using template and dom loader
+  import HeaderComponent from '../HeaderComponent/HeaderComponent.js'
+
+  // Function using template and dom loader
+  import ListComponent from '../ListComponent/ListComponent.js'
+
+  // Class using jsx
+  import TimerComponent from '../TimerComponent/TimerComponent.jsx'
+
+  // Function using jsx
+  import FooterComponent from '../FooterComponent/FooterComponent.jsx'
+
+  // Common logic handlers
+  import { IfComponent, IterateComponent } from '../Logic/Logic.js'
+</script>
+
+<div class="App shopping-list another">
+  <h1>Shopping List for {props.name}</h1>
+  <IfComponent if={props.name === null}>
+    <small>Not null</small>
+  </IfComponent>
+  <HeaderComponent title='Header title'/>
+  <ul onClick={this.clicker}>
+    <IterateComponent list={props.values} item="value" listComponent={ListComponent}/>
+  </ul>
+  <TimerComponent/>
+  <FooterComponent text="Some text"/>
+</div>
