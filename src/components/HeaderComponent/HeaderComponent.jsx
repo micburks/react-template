@@ -1,8 +1,8 @@
 import dom from 'dom'
-import html from './HeaderComponent.jsx.html'
+import './HeaderComponent.css'
 
 export default class HeaderComponent extends dom.Component {
   render () {
-    return dom.render(this, html)
+    return <div class="blue">{this.props.title}</div>
   }
 }

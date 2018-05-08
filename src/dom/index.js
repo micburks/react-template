@@ -1,53 +1,76 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// let counter = 0
+function ifIsTrue (obj) {
+  if ('if' in obj) {
+    if (typeof obj.if === 'function') {
+      return obj.if()
+    } else {
+      return obj.if
+    }
+  } else {
+    return false
+  }
+}
+
+function isFunction (arg) {
+  return typeof arg === 'function'
+}
+
+let counter = 0
 export default {
   init (...args) {
     return ReactDOM.render(...args)
   },
 
-  render (that, html) {
-    return html.call(that, that.props)
-  },
-
   element (component, props, ...args) {
     if (props) {
-      /*
-      console.log(props)
+      // console.log('props', props)
 
       // Handle if statements as attribute
       if ('if' in props) {
-        if (typeof props.if === 'function' && !props.if()) {
-          return ''
-        } else if (!props.if) {
-          return ''
+        if (!ifIsTrue(props)) {
+          return null
         }
+
+        delete props.if
       }
 
-      // Handle iterating with attribute -- Not quite possible
+      // Handle iterating with attribute
+      // Children that are functions will be called with item from array
       if (props.each) {
-        const { each, item } = props
+        const { each, id, item } = props
         delete props.each
+        delete props.id
         delete props.item
 
-        const values = each()
-        const elements = values.map(value => {
-          const newProps = Object.assign({}, props, { key: counter++, [item]: value })
-          const newArgs = args.map(arg => {
-            if (typeof arg === 'function') {
-              return arg(newProps)
+        let iterable = each
+        if (isFunction(iterable)) {
+          iterable = iterable()
+        }
+
+        const elements = iterable.map((value, index) => {
+          const newProps = Object.assign({}, props)
+
+          if (id) {
+            newProps.key = value[id]
+          } else {
+            newProps.key = index
+          }
+
+          const children = args.map(arg => {
+            if (isFunction(arg)) {
+              return arg(value, index, props)
             } else {
               return arg
             }
           })
 
-          return this.element(component, newProps, ...newArgs)
+          return this.element(component, newProps, ...children)
         })
 
         return elements
       }
-      */
 
       // Rename class to className for react
       if (props.class) {

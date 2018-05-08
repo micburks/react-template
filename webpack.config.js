@@ -5,10 +5,10 @@ module.exports = {
   mode: 'none',
   module: {
     rules: [{
-      test: /\.jsx.html$/,
+      test: /\.css$/,
       use: [
-        'babel-loader',
-        'dom/loader'
+        'style-loader',
+        'css-loader'
       ]
     }, {
       test: /\.jsx?$/,
