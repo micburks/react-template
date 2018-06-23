@@ -2,7 +2,7 @@
 ## react-template
 
 
-### POC limiting JSX in React
+### POC wrapping JSX with logic
 
 > FJSX
 
