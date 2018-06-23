@@ -1,6 +1,6 @@
 {
   "name": "react-template",
-  "description": "POC limiting JSX in React",
+  "description": "POC wrapping JSX with logic",
   "version": "1.0.0",
   "author": "Mickey Burks",
   "license": "MIT",
